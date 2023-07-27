@@ -26,6 +26,10 @@ const productSchema = new Schema({
                 _id : false 
             }
         ],
+        videoId: {
+            type: mongoose.ObjectId, 
+            ref: "Video" 
+        }
     },
     {timestamps:true}
 )
