@@ -3,32 +3,37 @@ import mongoose from "mongoose";
 const Schema = mongoose.Schema
 
 const videoSchema = new Schema({
-    title: {
-        type: String,
-        required: [true, 'title not defined']
+        title: {
+            type: String,
+            required: [true, 'title not defined']
+        },
+        url: [{
+                urlVideo: {
+                    type: String,
+                    isUrl: true,
+                    required: [true, 'url video not defined']
+                },
+                urlThumb: {
+                    type: String,
+                    isUrl: true,
+                    required: [true, 'url thumbnail not defined']
+                },
+                _id : false 
+            }
+        ],
+        views: {
+            type:Number,
+            min:0,
+            default:0
+        },
+        like: {
+            type:Number,
+            min:0,
+            default:0
+        },
     },
-    thumbnail: {
-        type: String,
-        required: [true, 'thumbnail not defined']
-    },
-    url: {
-        type: String,
-        isUrl: true,
-        required: [true, 'url not defined']
-    },
-    like: {
-        type:Number,
-        min:0,
-        default:0
-    },
-    productID:[
-        { type: mongoose.ObjectId, ref: "Product" }
-    ],
-    createAt:{
-        type:Date,
-        default: Date.now(),
-    }
-})
+    {timestamps:true}
+)
 
 const Video = mongoose.model('Video', videoSchema)
 
