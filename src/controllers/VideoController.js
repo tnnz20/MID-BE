@@ -51,16 +51,3 @@ export async function getVideoById(req, res, next){
         next(error)
     }
 }
-
-// export async function searchVideoByName(req, res, next){
-//     try {
-//         const text = req.query.search
-//         const result = await VideoServices.searchVideoByName(text)
-//         res.status(200).json({
-//             message: 'Video was retrieve successfully...',
-//             data: result
-//         });
-//     } catch (error) {
-//         next(error)
-//     }
-// }
