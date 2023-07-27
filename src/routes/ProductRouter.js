@@ -4,7 +4,7 @@ import { Router } from "express";
 const ProductRouter = Router()
 
 
-ProductRouter.route('/create').post(ProductControllers.createProduct)
+ProductRouter.route('/').post(ProductControllers.addProduct)
 
 
 export default ProductRouter
