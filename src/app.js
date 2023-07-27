@@ -6,8 +6,9 @@ import express from 'express';
 import CustomError from "./utils/CustomError.js"
 import ErrorController from './controllers/ErrorController.js';
 
-import ProductRouter from './routes/ProductRouter.js';
 import VideoRouter from './routes/VideoRouter.js'
+import ProductRouter from './routes/ProductRouter.js';
+import CommentRouter  from './routes/CommentRouter.js'
 
 const app = express()
 const PORT = process.env.PORT || 3000
@@ -23,10 +24,9 @@ db.once('connected', ()=> console.log('Database Connected'))
 
 
 // Router
-app.use('/', VideoRouter)
-app.use('/product', ProductRouter)
-app.use('/comment', CommentRouter)
-
+app.use('/api/v1/videos/', VideoRouter)
+app.use('/api/v1/products/', ProductRouter)
+app.use('/api/v1/comments', CommentRouter)
 app.use('*', (req, _, next)=>{
     const err = new CustomError(`Cant't find ${req.originalUrl} on the server!`, 404)
     next(err)
