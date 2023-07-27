@@ -5,7 +5,8 @@ const Schema = mongoose.Schema
 const videoSchema = new Schema({
         title: {
             type: String,
-            required: [true, 'title not defined']
+            required: [true, 'title not defined'],
+            index: true
         },
         url: [{
                 urlVideo: {
