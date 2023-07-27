@@ -8,3 +8,12 @@ export function addVideo(title, urlVideo, urlThumb){
     const url = { urlVideo, urlThumb }
     return VideoRepositories.Create(title, url)
 }
+
+export function getVideos(){
+    return VideoRepositories.getVideos()
+}
+
+export function getVideoById(videoId){
+    return VideoRepositories.getVideoById(videoId)
+}
+
