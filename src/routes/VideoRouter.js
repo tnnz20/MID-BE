@@ -6,7 +6,7 @@ const VideoRouter = Router()
 VideoRouter.route('/')
     .post(VideoControllers.addVideo)
     .get(VideoControllers.getVideos)
-
+    
 VideoRouter.route('/:videoId').get(VideoControllers.getVideoById)
 
 

@@ -19,6 +19,15 @@ export async function addVideo(req, res, next){
 
 export async function getVideos(req, res, next){
     try {
+        const searchName = req.query.search
+        if (searchName){
+            const searchVideo = await VideoServices.searchVideoByName(searchName)
+            res.status(200).json({
+                message: 'Videos was retrieve successfully...',
+                count: searchVideo.length,
+                data: searchVideo
+            });
+        }
         const Videos = await VideoServices.getVideos()
         res.status(200).json({
             message: 'Videos was retrieve successfully...',
@@ -42,3 +51,16 @@ export async function getVideoById(req, res, next){
         next(error)
     }
 }
+
+// export async function searchVideoByName(req, res, next){
+//     try {
+//         const text = req.query.search
+//         const result = await VideoServices.searchVideoByName(text)
+//         res.status(200).json({
+//             message: 'Video was retrieve successfully...',
+//             data: result
+//         });
+//     } catch (error) {
+//         next(error)
+//     }
+// }

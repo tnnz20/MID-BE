@@ -17,3 +17,10 @@ export function getVideoById(videoId){
     return VideoRepositories.getVideoById(videoId)
 }
 
+export function searchVideoByName(text){
+    if(!text){
+        throw new CustomError("Name not found...", 400)
+    }
+    return VideoRepositories.searchVideoByName(text)
+}
+
