@@ -1,6 +1,12 @@
-import * as ProductRepository from '../repositories/ProductRepository.js'
+import CustomError from '../utils/CustomError.js'
+import * as ProductRepositories from '../repositories/ProductRepository.js'
 
-export function createProduct(title, price, url){
-    return ProductRepository.Create(title, price, url)
+export function addProduct(title, price, urlProduct, urlThumb){
+    if (!title || !price || !urlProduct || !urlThumb){
+        throw new CustomError("There is empty data...", 400)
+    }
+
+    const url = [{ urlProduct, urlThumb } ]
+    return ProductRepositories.Create(title, price, url)
 }
 
