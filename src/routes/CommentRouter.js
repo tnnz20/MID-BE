@@ -4,7 +4,9 @@ import { Router } from "express";
 const CommentRouter = Router()
 
 
-CommentRouter.route('/').get(CommentControllers.getComments)
+CommentRouter.route('/')
+    .get(CommentControllers.getComments)
+    .delete(CommentControllers.deleteCommentById)
 
 CommentRouter.route('/:videoId/comment/')
     .post(CommentControllers.postComment)
