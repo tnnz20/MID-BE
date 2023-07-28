@@ -25,7 +25,16 @@ This repository hold my assignment in Gigih 3.0
     - [`GET`: videos/?search=tv](#get-videossearchtv)
     - [`GET`: videos/video/:videoId](#get-videosvideovideoid)
   - [4.2 Product Endpoint](#42-product-endpoint)
+    - [`GET`: products/](#get-products)
+    - [`POST` products/](#post-products)
+    - [`GET`: products/product/64c3ac6761ad3159f1d5407c](#get-productsproduct64c3ac6761ad3159f1d5407c)
+    - [`GET`: ?sort=desc](#get-sortdesc)
+    - [`GET`: products/64c22e3ef921a04215fed0b8/product](#get-products64c22e3ef921a04215fed0b8product)
   - [4.3 Comment Endpoint](#43-comment-endpoint)
+    - [`GET`: comments/](#get-comments)
+    - [`GET`: comments/:videoId/comment/](#get-commentsvideoidcomment)
+    - [`POST`: comments/64c22e25f921a04215fed0b6/comment/](#post-comments64c22e25f921a04215fed0b6comment)
+    - [`DELETE`: comments/?commentId=64c39d1183eb9da33df346e0](#delete-commentscommentid64c39d1183eb9da33df346e0)
 
 ## 1. How to run the project
 
@@ -111,21 +120,22 @@ http://localhost:PORT/api/v1/
 
 #### 3.2.2. Product Endpoint
 
-| Method |       Path       |  Params/query   | Description              |
-| :----: | :--------------: | :-------------: | ------------------------ |
-| `POST` | /api/v1/product/ |        -        | Add new product          |
-| `GET`  | /api/v1/product/ |        -        | Get all product list     |
-| `GET`  | /api/v1/product/ |   :productId    | Get product by Id        |
-| `GET`  | /api/v1/product/ | :videId/product | Get product by `videoId` |
-| `GET`  | /api/v1/product/ |    ?sort=asc    | Get sorted product       |
+| Method |   Path   |    Params/query    | Description              |
+| :----: | :------: | :----------------: | ------------------------ |
+| `POST` | product/ |         -          | Add new product          |
+| `GET`  | product/ |         -          | Get all product list     |
+| `GET`  | product/ | product/:productId | Get product by Id        |
+| `GET`  | product/ |  :videId/product   | Get product by `videoId` |
+| `GET`  | product/ |     ?sort=asc      | Get sorted product       |
 
 #### 3.2.3. Comment Endpoint
 
-| Method |       Path        |   Params/query   | Description                  |
-| :----: | :---------------: | :--------------: | ---------------------------- |
-| `POST` | /api/v1/comments/ |        -         | Add new video                |
-| `GET`  | /api/v1/comments/ |        -         | Get all video list           |
-| `GET`  | /api/v1/comments/ | :videoId/comment | Get all comment by `videoId` |
+|  Method  |   Path    |   Params/query   | Description                  |
+| :------: | :-------: | :--------------: | ---------------------------- |
+|  `POST`  | comments/ | :videoId/comment | Add new video                |
+| `DELETE` | comments/ |        -         | Delete comment by Id         |
+|  `GET`   | comments/ |        -         | Get all video list           |
+|  `GET`   | comments/ | :videoId/comment | Get all comment by `videoId` |
 
 ## 4. Sample Endpoint Usage
 
@@ -321,7 +331,7 @@ find video by videoId
 
 - Success Response
 
-  - Status code: 202
+  - Status code: 200
   - Body JSON
 
     ```json
@@ -353,4 +363,369 @@ find video by videoId
 
 ### 4.2 Product Endpoint
 
+#### `GET`: products/
+
+Get all Product from database
+
+- Url Params
+  
+  None
+- Url Payload
+  
+  None
+- Success Response
+  
+  - Status code: 200
+  - Body JSON
+
+    ```json
+    {
+            "message": "Products was retrieve successfully...",
+            "count": 1,
+            "data": [
+                {
+                    "url": {
+                        "urlProduct": "https://www.tokopedia.com/agusidstoreapple/asus-vivobook-k513ea-core-i5-1135g7-8gb-256gb-512gb-ssd-15-6-fhd-oled-512gb-gold-non-bundling?extParam=ivf%3Dfalse&src=topads",
+                        "urlThumb": "https://images.tokopedia.net/img/cache/900/VqbcmM/2023/5/23/b28a6c97-2393-493b-9cbd-1fd97fe2f320.png"
+                    },
+                    "_id": "64c3ac6761ad3159f1d5407c",
+                    "title": "Asus Vivobook K513EA Core i5 1135G7 8GB 256GB/512GB SSD 15.6\" FHD OLED - 512GB Gold, NON BUNDLING",
+                    "price": 9128999,
+                    "videoId": "64c22e3ef921a04215fed0b8",
+                    "createdAt": "2023-07-28T11:54:15.412Z",
+                    "updatedAt": "2023-07-28T11:54:15.412Z"
+                }
+            ]
+    }
+    ```
+
+- Failed Response
+  
+  - Status code: 404
+  
+    Message : Collection Product still empty...
+
+#### `POST` products/
+
+Create new Product
+
+- Url Params
+  
+  none
+- Url Payload
+  
+  None
+- POST Body
+  
+  ```json
+  {
+      "title": "Asus Vivobook K513EA Core i5 1135G7 8GB 256GB/512GB SSD 15.6\" FHD OLED - 512GB Gold, NON BUNDLING",
+      "price": 9128999,
+      "urlProduct": "https://www.tokopedia.com/agusidstoreapple/asus-vivobook-k513ea-core-i5-1135g7-8gb-256gb-512gb-ssd-15-6-fhd-oled-512gb-gold-non-bundling?extParam=ivf%3Dfalse&src=topads",
+      "urlThumb": "https://images.tokopedia.net/img/cache/900/VqbcmM/2023/5/23/b28a6c97-2393-493b-9cbd-1fd97fe2f320.png",
+      "videoId": "64c22e3ef921a04215fed0b8"
+  }
+  ```
+
+- Success Response
+  
+  - Status code: 201
+  - Body JSON
+
+    ```json
+    {
+        "message": "Product was added successfully...",
+        "data": {
+            "title": "Asus Vivobook K513EA Core i5 1135G7 8GB 256GB/512GB SSD 15.6\" FHD OLED - 512GB Gold, NON BUNDLING",
+            "price": 9128999,
+            "url": {
+                "urlProduct": "https://www.tokopedia.com/agusidstoreapple/asus-vivobook-k513ea-core-i5-1135g7-8gb-256gb-512gb-ssd-15-6-fhd-oled-512gb-gold-non-bundling?extParam=ivf%3Dfalse&src=topads",
+                "urlThumb": "https://images.tokopedia.net/img/cache/900/VqbcmM/2023/5/23/b28a6c97-2393-493b-9cbd-1fd97fe2f320.png"
+            },
+            "videoId": "64c22e3ef921a04215fed0b8",
+            "_id": "64c3ac6761ad3159f1d5407c",
+            "createdAt": "2023-07-28T11:54:15.412Z",
+            "updatedAt": "2023-07-28T11:54:15.412Z",
+            "__v": 0
+        }
+    }
+    ```
+
+- Failed Response
+  - Status Code: 400
+  
+    Message: There is empty data...
+
+#### `GET`: products/product/64c3ac6761ad3159f1d5407c
+
+find product by Id
+
+- Url Params
+  
+  required: `productId`
+- Url Payload
+  
+  None
+
+- Success Response
+
+  - Status code: 200
+  - Body JSON
+
+    ```json
+    {
+        "message": "Product was retrieve successfully...",
+        "data": {
+            "url": {
+                "urlProduct": "https://www.tokopedia.com/agusidstoreapple/asus-vivobook-k513ea-core-i5-1135g7-8gb-256gb-512gb-ssd-15-6-fhd-oled-512gb-gold-non-bundling?extParam=ivf%3Dfalse&src=topads",
+                "urlThumb": "https://images.tokopedia.net/img/cache/900/VqbcmM/2023/5/23/b28a6c97-2393-493b-9cbd-1fd97fe2f320.png"
+            },
+            "_id": "64c3ac6761ad3159f1d5407c",
+            "title": "Asus Vivobook K513EA Core i5 1135G7 8GB 256GB/512GB SSD 15.6\" FHD OLED - 512GB Gold, NON BUNDLING",
+            "price": 9128999,
+            "videoId": "64c22e3ef921a04215fed0b8",
+            "createdAt": "2023-07-28T11:54:15.412Z",
+            "updatedAt": "2023-07-28T11:54:15.412Z"
+        }
+    }
+    ```
+
+- Failed Response
+
+  - Status Code: 400
+  
+    Message: Product Id not valid...
+  - Status Code: 404
+  
+    Message: Product not found...
+
+#### `GET`: ?sort=desc
+
+sort product by price
+
+- Url Params
+  
+  None
+- Url Payload
+  
+  Required: `asc` or `desc`
+
+- Success Response
+
+  - Status code: 200
+
+- Failed Response
+
+  - Status code: 400
+
+    Message : Invalid payload, payload must either asc or desc...
+
+#### `GET`: products/64c22e3ef921a04215fed0b8/product
+
+find product by videoId
+
+- Url Params
+  
+  required: `videoId`
+- Url Payload
+  
+  None
+
+- Success Response
+
+  - Status code: 200
+  - Body JSON
+
+    ```json
+    {
+        "message": "Product was retrieve successfully...",
+        "data": [
+            {
+                "url": {
+                    "urlProduct": "https://www.tokopedia.com/agusidstoreapple/asus-vivobook-k513ea-core-i5-1135g7-8gb-256gb-512gb-ssd-15-6-fhd-oled-512gb-gold-non-bundling?extParam=ivf%3Dfalse&src=topads",
+                    "urlThumb": "https://images.tokopedia.net/img/cache/900/VqbcmM/2023/5/23/b28a6c97-2393-493b-9cbd-1fd97fe2f320.png"
+                },
+                "_id": "64c3ac6761ad3159f1d5407c",
+                "title": "Asus Vivobook K513EA Core i5 1135G7 8GB 256GB/512GB SSD 15.6\" FHD OLED - 512GB Gold, NON BUNDLING",
+                "price": 9128999,
+                "videoId": "64c22e3ef921a04215fed0b8",
+                "createdAt": "2023-07-28T11:54:15.412Z",
+                "updatedAt": "2023-07-28T11:54:15.412Z",
+                "__v": 0
+            }
+        ]
+    }
+    ```
+
+- Failed Response
+
+  - Status Code: 400
+  
+    Message: Product Id not valid...
+
 ### 4.3 Comment Endpoint
+
+#### `GET`: comments/
+
+Get all comments from database
+
+- Url Params
+  
+  None
+- Url Payload
+  
+  None
+- Success Response
+  
+  - Status code: 200
+  - Body JSON
+
+    ```json
+    {
+        "message": "Comments was retrieve successfully...",
+        "count": 1,
+        "data": [
+            {
+                "_id": "64c28da080dc1c11270f9949",
+                "user": "WildanHero",
+                "comment": "Bang, masukan aja untuk review smart tv coba juga wireless mirroring nya dari HP dan Laptop dong. Thanks, sukses terus buat channel gadgetin",
+                "videoId": "64c2801db335e70f05cb3824",
+                "createdAt": "2023-07-27T15:30:40.689Z",
+                "updatedAt": "2023-07-27T15:30:40.689Z"
+            }
+        ]
+    }
+    ```
+
+- Failed Response
+  
+  - Status code: 404
+  
+    Message : Collection Comment still empty...
+
+#### `GET`: comments/:videoId/comment/
+
+Get comment by videoId
+
+- Url Params
+  
+  required: `:videoId`
+- Url Payload
+  
+  None
+- Success Response
+  
+  - Status code: 200
+  - Body JSON
+  
+  ```json
+  {
+      "message": "Comments was retrieve successfully...",
+      "count": 1,
+      "data": [
+          {
+              "_id": "64c28da080dc1c11270f9949",
+              "user": "WildanHero",
+              "comment": "Bang, masukan aja untuk review smart tv coba juga wireless mirroring nya dari HP dan Laptop dong. Thanks, sukses terus buat channel gadgetin",
+              "videoId": "64c2801db335e70f05cb3824",
+              "createdAt": "2023-07-27T15:30:40.689Z",
+              "updatedAt": "2023-07-27T15:30:40.689Z",
+              "__v": 0
+          }
+      ]
+  }
+  ```
+
+- Failed Response
+  
+  - Status code: 404
+  
+    Message : Comment not found...
+  
+  - Status code: 400
+
+    Message : Video Id not valid...
+
+#### `POST`: comments/64c22e25f921a04215fed0b6/comment/
+
+Create new video
+
+- Url Params
+  
+  required: `:videoId`
+- Url Payload
+  
+  None
+- POST Body
+  
+  ```json
+    {
+        "user":"user1",
+        "comment":"mantap bang"
+    }
+  ```
+
+- Success Response
+  
+  - Status code: 201
+  - Body JSON
+
+    ```json
+    {
+      "message": "Comment was added successfully...",
+      "data": {
+          "username": "user1",
+          "comment": "mantap bang",
+          "videoId": "64c22e25f921a04215fed0b6",
+          "_id": "64c39c9e83eb9da33df346da",
+          "createdAt": "2023-07-28T10:46:54.233Z",
+          "updatedAt": "2023-07-28T10:46:54.233Z",
+          "__v": 0
+      }
+    }
+    ```
+
+- Failed Response
+  - Status Code: 400
+  
+    Message: There is empty data...
+
+#### `DELETE`: comments/?commentId=64c39d1183eb9da33df346e0
+
+Delete Comment by Id
+
+- Url Params
+  
+  required: `commentId`
+- Url Payload
+  
+  None
+
+- Success Response
+
+  - Status code: 202
+  - Body JSON
+
+    ```json
+    {
+        "message": "Comment was deleted successfully...",
+        "data": {
+            "_id": "64c39d1183eb9da33df346e0",
+            "username": "user1",
+            "comment": "mantap bang",
+            "videoId": "64c22e25f921a04215fed0b6",
+            "createdAt": "2023-07-28T10:48:49.979Z",
+            "updatedAt": "2023-07-28T10:48:49.979Z",
+            "__v": 0
+        }
+    }
+    ```
+
+- Failed Response
+
+  - Status Code: 400
+  
+    Message: Video Id not valid...
+  - Status Code: 404
+  
+    Message: Video not found...
