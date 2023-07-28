@@ -1,5 +1,5 @@
-import CustomError from '../utils/CustomError.js'
 import * as VideoRepositories from '../repositories/VideoRepository.js'
+import CustomError from '../utils/CustomError.js'
 
 export function addVideo(title, urlVideo, urlThumb){
     if (!title || !urlVideo || !urlThumb){
@@ -14,13 +14,28 @@ export function getVideos(){
 }
 
 export function getVideoById(videoId){
+    checkVideoId(videoId)
     return VideoRepositories.getVideoById(videoId)
 }
 
-export function searchVideoByName(text){
-    if(!text){
-        throw new CustomError("Name not found...", 400)
-    }
-    return VideoRepositories.searchVideoByName(text)
+export function searchVideoByName(textSearch){
+
+    return VideoRepositories.searchVideoByName(textSearch)
 }
 
+export function deleteVideoById(videoId){
+    checkVideoId(videoId)
+    return VideoRepositories.deleteVideoById(videoId)
+}
+
+export function checkVideo(Video){
+    if (!Video){
+        throw new CustomError('Video not found...', 404)
+    }
+}
+
+export function checkVideoId(videoId){
+    if (videoId.length < 24){
+        throw new CustomError('Video Id not valid...', 400)
+    }
+}
