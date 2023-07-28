@@ -7,7 +7,7 @@ const videoSchema = new Schema({
             type: String,
             required: [true, 'title not defined']
         },
-        url: [{
+        url:{
                 urlVideo: {
                     type: String,
                     isUrl: true,
@@ -18,9 +18,7 @@ const videoSchema = new Schema({
                     isUrl: true,
                     required: [true, 'url thumbnail not defined']
                 },
-                _id : false 
-            }
-        ],
+        },
         views: {
             type:Number,
             min:0,

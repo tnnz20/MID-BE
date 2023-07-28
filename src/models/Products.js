@@ -12,7 +12,7 @@ const productSchema = new Schema({
             min:0,
             required: [true, 'price not defined']
         },
-        url: [{
+        url: {
                 urlProduct: {
                     type: String,
                     isUrl: true,
@@ -23,9 +23,7 @@ const productSchema = new Schema({
                     isUrl: true,
                     required: [true, 'url thumbnail not defined']
                 },
-                _id : false 
-            }
-        ],
+        },
         videoId: {
             type: mongoose.ObjectId, 
             ref: "Video" 
