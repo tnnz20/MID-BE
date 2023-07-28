@@ -1,8 +1,8 @@
 import Comment from "../models/Comments.js";
 
-export function postComment(user, comment, videoId){
+export function postComment(username, comment, videoId){
     const newComment = new Comment({
-        user,
+        username,
         comment,
         videoId
     })
@@ -15,4 +15,8 @@ export function getComments(){
 
 export function getCommentByVideoId(videoId){
     return Comment.find({"videoId":videoId})
+}
+
+export function deleteCommentById(commentId){
+    return Comment.findByIdAndDelete(commentId)
 }
