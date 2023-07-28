@@ -16,8 +16,8 @@ export function getVideoById(videoId){
     return Video.findById(videoId, {__v:0})
 }
 
-export function searchVideoByName(text){
-    return Video.find({ $text: { $search: text } })
+export function searchVideoByName(textSearch){
+    return Video.find({ $text: { $search: textSearch } })
 }
 
 export function deleteVideoById(videoId){
