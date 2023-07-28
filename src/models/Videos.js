@@ -5,8 +5,7 @@ const Schema = mongoose.Schema
 const videoSchema = new Schema({
         title: {
             type: String,
-            required: [true, 'title not defined'],
-            index: true
+            required: [true, 'title not defined']
         },
         url: [{
                 urlVideo: {
@@ -35,6 +34,8 @@ const videoSchema = new Schema({
     },
     {timestamps:true}
 )
+
+videoSchema.index({title:"text"})
 
 const Video = mongoose.model('Video', videoSchema)
 
