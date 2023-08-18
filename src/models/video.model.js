@@ -18,6 +18,10 @@ const videoSchema = new Schema(
             isUrl: true,
             required: [true, 'url thumbnail not defined'],
         },
+        owner: {
+            type: String,
+            required: [true, 'owner not defined'],
+        },
         views: {
             type: Number,
             min: 0,
