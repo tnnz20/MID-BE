@@ -43,7 +43,6 @@ export async function getVideoById(req, res, next) {
     try {
         const videoId = req.params.videoId;
         const video = await VideoServices.getVideoById(videoId);
-        console.log('ini video', video);
         res.status(200).json({
             message: 'Video was retrieve successfully...',
             data: video,
