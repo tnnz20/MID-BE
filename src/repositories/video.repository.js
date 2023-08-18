@@ -1,6 +1,6 @@
 import Video from '../models/video.model.js';
 
-export function createNewVideo(request) {
+export function addNewVideo(request) {
     return Video.create(request);
 }
 
@@ -13,7 +13,18 @@ export function getVideoById(videoId) {
 }
 
 export function searchVideoByName(request) {
-    return Video.find({ $text: { $search: request } });
+    return Video.find(
+        { title: { $regex: request, $options: 'i' } },
+        { __v: 0 }
+    );
+}
+
+export function updateViewsVideoById(videoId) {
+    return Video.findByIdAndUpdate(
+        videoId,
+        { $inc: { views: 1 } },
+        { new: true }
+    );
 }
 
 export function deleteVideoById(videoId) {
@@ -25,11 +36,5 @@ export function countTotalVideo() {
 }
 
 export function updateVideoById(videoId, request) {
-    return Video.findByIdAndUpdate(
-        videoId,
-        {
-            $set: request,
-        },
-        { new: true }
-    );
+    return Video.findByIdAndUpdate(videoId, { $set: request }, { new: true });
 }
