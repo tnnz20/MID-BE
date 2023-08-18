@@ -3,46 +3,45 @@ import * as videoValidation from '../validations/video-validation.js';
 import validate from '../validations/validation.js';
 import ResponseError from '../error/response-error.js';
 
+async function checkVideoIsNotEmpty() {
+    const totalVideos = await VideoRepositories.countTotalVideo();
+    if (totalVideos === 0) {
+        throw new ResponseError(404, 'Collection video still empty');
+    }
+}
+
 export async function addVideo(request) {
     const video = validate(videoValidation.addVideoValidation, request);
 
-    return await VideoRepositories.createNewVideo(video);
+    return await VideoRepositories.addNewVideo(video);
 }
 
 export async function getVideos() {
-    const totalVideos = await VideoRepositories.countTotalVideo();
-    if (totalVideos === 0) {
-        throw new ResponseError(404, 'Collection video still empty');
-    }
+    checkVideoIsNotEmpty();
 
-    const videos = await VideoRepositories.getVideos();
-
-    return videos;
+    return await VideoRepositories.getVideos();
 }
 
 export async function getVideoById(videoId) {
-    const totalVideos = await VideoRepositories.countTotalVideo();
-    if (totalVideos === 0) {
-        throw new ResponseError(404, 'Collection video still empty');
-    }
+    checkVideoIsNotEmpty();
 
     videoId = validate(videoValidation.getVideoIdValidation, videoId);
 
-    const video = await VideoRepositories.getVideoById(videoId);
+    let video = await VideoRepositories.getVideoById(videoId);
 
     if (!video) {
         throw new ResponseError(404, 'Video not found...');
     }
+
+    video = await VideoRepositories.updateViewsVideoById(video._id);
     return video;
 }
 
 export async function searchVideoByName(request) {
-    const totalVideos = await VideoRepositories.countTotalVideo();
-    if (totalVideos === 0) {
-        throw new ResponseError(404, 'Collection video still empty');
-    }
+    checkVideoIsNotEmpty();
+    const textSearch = validate(videoValidation.searchVideoValidation, request);
 
-    const searchVideo = await VideoRepositories.searchVideoByName(request);
+    const searchVideo = await VideoRepositories.searchVideoByName(textSearch);
 
     if (searchVideo.length === 0) {
         throw new ResponseError(
@@ -54,10 +53,7 @@ export async function searchVideoByName(request) {
 }
 
 export async function deleteVideoById(videoId) {
-    const totalVideos = await VideoRepositories.countTotalVideo();
-    if (totalVideos === 0) {
-        throw new ResponseError(404, 'Collection video still empty');
-    }
+    checkVideoIsNotEmpty();
 
     videoId = validate(videoValidation.getVideoIdValidation, videoId);
 
@@ -70,10 +66,7 @@ export async function deleteVideoById(videoId) {
 }
 
 export async function updateVideoById(videoId, request) {
-    const totalVideos = await VideoRepositories.countTotalVideo();
-    if (totalVideos === 0) {
-        throw new ResponseError(404, 'Collection video still empty');
-    }
+    checkVideoIsNotEmpty();
 
     videoId = validate(videoValidation.getVideoIdValidation, videoId);
 
