@@ -20,11 +20,7 @@ export function searchVideoByName(request) {
 }
 
 export function updateViewsVideoById(videoId) {
-    return Video.findByIdAndUpdate(
-        videoId,
-        { $inc: { views: 1 } },
-        { new: true }
-    );
+    return Video.findByIdAndUpdate(videoId, { $inc: { views: 1 } });
 }
 
 export function deleteVideoById(videoId) {
