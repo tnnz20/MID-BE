@@ -34,7 +34,7 @@ export async function login(request) {
         throw new ResponseError(400, 'Username not found');
     }
 
-    const isPasswordValid = bcrypt.compare(
+    const isPasswordValid = await bcrypt.compare(
         loginRequest.password,
         user.password
     );
@@ -44,7 +44,7 @@ export async function login(request) {
     }
 
     const accessToken = jwt.sign({ id: user._id }, process.env.SECRET_KEY, {
-        expiresIn: '3h',
+        expiresIn: '5h',
     });
 
     return accessToken;
