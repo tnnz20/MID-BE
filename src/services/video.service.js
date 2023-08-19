@@ -33,7 +33,8 @@ export async function getVideoById(videoId) {
         throw new ResponseError(404, 'Video not found...');
     }
 
-    video = await VideoRepositories.updateViewsVideoById(video._id);
+    video = VideoRepositories.updateViewsVideoById(video._id);
+
     return video;
 }
 
