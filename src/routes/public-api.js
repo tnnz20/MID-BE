@@ -38,5 +38,6 @@ publicRouter
 publicRouter
     .route('/videos/video/:videoId/comments')
     .get(commentController.getCommentByVideoId);
+// .post(commentController.postComment);
 
 export { publicRouter };
