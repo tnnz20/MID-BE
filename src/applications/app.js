@@ -9,7 +9,7 @@ import cors from 'cors';
 export const app = express();
 
 const corsOptions = {
-    origin: 'http://localhost:' + process.env.ALLOWED_CORS,
+    origin: 'https://tokopei.vercel.app/',
     credentials: true,
 };
 
