@@ -26,7 +26,7 @@ export async function getCommentByVideoId(videoId) {
         throw new ResponseError(404, 'Video not found...');
     }
 
-    const comment = CommentRepositories.getCommentByVideoId(videoId);
+    const comment = await CommentRepositories.getCommentByVideoId(videoId);
 
     if (comment.length === 0) {
         throw new ResponseError(404, 'Comment not found...');
