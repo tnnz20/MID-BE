@@ -9,7 +9,7 @@ import cors from 'cors';
 export const app = express();
 
 const corsOptions = {
-    origin: '*',
+    origin: process.env.ALLOWED_CORS,
     credentials: true,
 };
 
