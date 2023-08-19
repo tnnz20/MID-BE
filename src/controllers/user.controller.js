@@ -20,7 +20,9 @@ export async function login(request, response, next) {
 
         response.cookie('access_token', user_token, {
             httpOnly: true,
-            maxAge: 3 * 60 * 60 * 1000,
+            maxAge: 5 * 60 * 60 * 1000,
+            path: '/',
+            sameSite: 'none',
             secure: true,
         });
 
